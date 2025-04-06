@@ -62,8 +62,26 @@ pip install -r requirements.txt
 
 ### 4. Network setup
 
-- Set up a WiFi hotspot or rogue access point.
-- Use **DNS spoofing** (`dns_spoofer.py`) to redirect login domains (e.g., facebook.com) to your phishing server IP.
+You have multiple options to deploy the phishing portal over WiFi:
+
+#### Option 1: Dedicated WiFi Access Point (AP)
+
+- Use a WiFi router or device that supports:
+  - Custom firmware (e.g., OpenWRT, DD-WRT)
+  - Captive portal features
+  - DNS redirection
+- Configure the AP to redirect all HTTP traffic to your phishing server IP.
+- Use **DNS spoofing** (`dns_spoofer.py`) to transparently redirect login domains (e.g., facebook.com) to your server.
+- This is the most reliable method for large-scale testing.
+
+#### Option 2: Built-in Mobile Hotspot (Workaround)
+
+- Use your **smartphone** or **laptop** to create a WiFi hotspot.
+- Connect victim devices to this hotspot.
+- Run the phishing portal server on the same device or another device connected to the hotspot.
+- Manually direct victims to the phishing page URL (e.g., `http://192.168.1.1`).
+- Note: This method **may not support transparent DNS spoofing** but is quick and easy for demos or small tests.
+
 - Ensure firewall rules allow inbound HTTP traffic.
 
 ---
