@@ -1,0 +1,5 @@
+flask
+cryptography
+paramiko
+requests
+dnslib

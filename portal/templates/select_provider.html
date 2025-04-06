@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Sign in to access the Internet</title>
+<style>
+body { font-family: Helvetica, Arial, sans-serif; background: #f0f2f5; margin: 0; }
+.container { width: 400px; margin: 100px auto; padding: 20px; background: white; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.2); text-align: center; }
+h2 { margin-bottom: 20px; }
+button { width: 90%; padding: 12px; margin: 10px 0; border: none; border-radius: 4px; font-size: 16px; cursor: pointer; }
+.fb { background: #1877f2; color: white; }
+.google { background: #db4437; color: white; }
+.twitter { background: #1da1f2; color: white; }
+button:hover { opacity: 0.9; }
+</style>
+</head>
+<body>
+<div class="container">
+  <h2>Sign in to continue</h2>
+  <form action="/login/facebook" method="get">
+    <button class="fb" type="submit">Continue with Facebook</button>
+  </form>
+  <form action="/login/google" method="get">
+    <button class="google" type="submit">Continue with Google</button>
+  </form>
+  <form action="/login/twitter" method="get">
+    <button class="twitter" type="submit">Continue with Twitter</button>
+  </form>
+</div>
+</body>
+</html>

