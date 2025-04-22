@@ -1,6 +1,6 @@
 {
   "ssid": "Free_Public_WiFi",
   "wifi_password": "",
-  "captive_portal_ip": "192.168.0.106",
-  "fernet_key": "D_uJSKyysltd3IbL50yQYGWri525xCZEbzkM_vWyqzk="
+  "captive_portal_ip": "192.168.0.1",
+  "fernet_key": "iloveyou"
 }
