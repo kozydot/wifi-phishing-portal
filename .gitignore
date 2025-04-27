@@ -1,0 +1,23 @@
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Logs
+logs/
+*.log
+
+# Captured data (Sensitive - should generally not be committed)
+login_details/captured_credentials.enc
+# login_details/dns_queries.log # Keep this commented if user wants to track DNS queries
+
+# Environment specifics
+.env
+*.env
+
+# IDE/Editor specific
+.vscode/
+.idea/
+*.swp
+*~
