@@ -1,31 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<title>Sign in to access the Internet</title>
-<style>
-body { font-family: Helvetica, Arial, sans-serif; background: #f0f2f5; margin: 0; }
-.container { width: 400px; margin: 100px auto; padding: 20px; background: white; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.2); text-align: center; }
-h2 { margin-bottom: 20px; }
-button { width: 90%; padding: 12px; margin: 10px 0; border: none; border-radius: 4px; font-size: 16px; cursor: pointer; }
-.fb { background: #1877f2; color: white; }
-.google { background: #db4437; color: white; }
-.twitter { background: #1da1f2; color: white; }
-button:hover { opacity: 0.9; }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connect to Wi-Fi</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/select_provider.css') }}">
 </head>
 <body>
-<div class="container">
-  <h2>Sign in to continue</h2>
-  <form action="/login/facebook" method="get">
-    <button class="fb" type="submit">Continue with Facebook</button>
-  </form>
-  <form action="/login/google" method="get">
-    <button class="google" type="submit">Continue with Google</button>
-  </form>
-  <form action="/login/twitter" method="get">
-    <button class="twitter" type="submit">Continue with Twitter</button>
-  </form>
-</div>
+    <div class="container">
+        <header>
+            <h1>Connect to Free Wi-Fi</h1>
+            <p>Please select your provider to log in and access the network.</p>
+        </header>
+
+        <section class="provider-options">
+            <form action="/login/facebook" method="get">
+                <button type="submit" class="provider-btn facebook">
+                    <img src="data:image/svg+xml;utf8,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20xmlns:xlink='http://www.w3.org/1999/xlink'%20width='256'%20height='256'%20version='1.0'%3E%3Cdefs%3E%3ClinearGradient%20id='a'%3E%3Cstop%20offset='0'%20stop-color='%23fff'/%3E%3Cstop%20offset='1'%20stop-color='%23fff'%20stop-opacity='0'/%3E%3C/linearGradient%3E%3ClinearGradient%20xlink:href='%23a'%20id='b'%20x1='-344.15295'%20x2='-395.84943'%20y1='274.711'%20y2='425.39993'%20gradientTransform='matrix(-.59146%200%200%20.59146%20210.02161%20142.23241)'%20gradientUnits='userSpaceOnUse'/%3E%3C/defs%3E%3Cg%20transform='translate(-373.642%20-318.344)'%3E%3Crect%20width='236'%20height='236'%20x='-619.64203'%20y='328.34399'%20fill='%230037c1'%20fill-rule='evenodd'%20rx='35.487503'%20ry='35.487503'%20transform='scale(-1%201)'/%3E%3Cpath%20fill='url(%23b)'%20fill-rule='evenodd'%20d='M557.29062%20338.43314H445.99327c-29.46072%200-53.1782%2023.91213-53.1782%2053.61463v108.5923c.9536%2023.18533%204.62171%208.52805%2011.6038-17.14813%208.11467-29.84092%2034.54169-55.92231%2066.72513-75.46882%2024.5646-14.91914%2052.05995-24.44592%20102.10882-25.35222%2028.38415-.51396%2025.8783-36.84065-15.9622-44.23776z'%20opacity='.30042916'/%3E%3Cpath%20fill='%23fff'%20d='M544.54265743%20538.49470867H506.4692545v-92.90535555h-19.02141672v-32.01694954h19.02141672v-19.22286047c0-26.11937667%2010.74068085-41.65104183%2041.25622649-41.65104183h25.40504589v32.02057547h-15.87995189c-11.87894487%200-12.66476063%204.47439589-12.66476063%2012.82490945l-.04315693%2016.02479145h28.76768999l-3.3662405%2032.01694954h-25.40144949v92.90898148z'/%3E%3C/g%3E%3C/svg%3E" alt="Facebook Logo">
+                    <span>Continue with Facebook</span>
+                </button>
+            </form>
+            <form action="/login/google" method="get">
+                <button type="submit" class="provider-btn google">
+                    <img src="data:image/svg+xml;utf8,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20height='24'%20viewBox='0%200%2024%2024'%20width='24'%3E%3Cpath%20d='M22.56%2012.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26%201.37-1.04%202.53-2.21%203.31v2.77h3.57c2.08-1.92%203.28-4.74%203.28-8.09z'%20fill='%234285F4'/%3E%3Cpath%20d='M12%2023c2.97%200%205.46-.98%207.28-2.66l-3.57-2.77c-.98.66-2.23%201.06-3.71%201.06-2.86%200-5.29-1.93-6.16-4.53H2.18v2.84C3.99%2020.53%207.7%2023%2012%2023z'%20fill='%2334A853'/%3E%3Cpath%20d='M7.84%2014.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43%208.55%201%2010.22%201%2012s.43%203.45%201.18%204.93l2.85-2.22.82-.62z'%20fill='%23FBBC05'/%3E%3Cpath%20d='M12%205.38c1.62%200%203.06.56%204.21%201.64l3.15-3.15C17.45%202.09%2014.97%201%2012%201%207.7%201%203.99%203.47%202.18%207.07l3.66%202.84c.87-2.6%203.3-4.53%206.16-4.53z'%20fill='%23EA4335'/%3E%3Cpath%20d='M1%201H23V23H1z'%20fill='none'/%3E%3C/svg%3E" alt="Google Logo">
+                    <span>Continue with Google</span>
+                </button>
+            </form>
+            <form action="/login/twitter" method="get">
+                <button type="submit" class="provider-btn twitter">
+                    <img src="data:image/svg+xml;utf8,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2024%2024'%20version='1.1'%3E%20%3Cpath%20d='M18.244%202.25h3.308l-7.227%208.26%208.502%2011.24H16.17l-5.214-6.817L4.99%2021.75H1.68l7.73-8.835L1.254%202.25H8.08l4.713%206.231zm-1.161%2017.52h1.833L7.084%204.126H5.117z'%3E%3C/path%3E%20%3C/svg%3E" alt="Twitter (X) Logo">
+                    <span>Continue with Twitter (X)</span>
+                </button>
+            </form>
+        </section>
+
+        <footer>
+            <p>
+                By continuing, you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.
+            </p>
+        </footer>
+    </div>
 </body>
 </html>

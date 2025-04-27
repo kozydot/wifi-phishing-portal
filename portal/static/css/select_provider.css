@@ -1,0 +1,124 @@
+/* Basic setup */
+body {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    background-color: #f0f2f5;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px; /* Add padding for small screens */
+    box-sizing: border-box;
+}
+
+.container {
+    background-color: #ffffff;
+    padding: 30px 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 100%; /* Responsive width */
+    max-width: 450px; /* Max width */
+    box-sizing: border-box;
+}
+
+/* Header */
+header h1 {
+    font-size: 1.7em;
+    color: #1c1e21; /* Darker text */
+    margin-bottom: 8px;
+}
+
+header p {
+    color: #606770; /* Softer text color */
+    margin-bottom: 25px;
+    font-size: 0.95em;
+}
+
+/* Provider Buttons */
+.provider-options form {
+    margin-bottom: 12px;
+}
+
+.provider-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Center content horizontally */
+    width: 100%;
+    padding: 10px 15px; /* Adjust padding */
+    border: 1px solid #ccd0d5; /* Standard border */
+    border-radius: 6px;
+    font-size: 15px; /* Slightly smaller font */
+    font-weight: 500; /* Medium weight */
+    cursor: pointer;
+    background-color: #f5f6f7; /* Light grey background */
+    color: #4b4f56; /* Dark grey text */
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+    box-sizing: border-box;
+    text-align: center; /* Ensure text is centered if span wraps */
+}
+
+.provider-btn:hover {
+    background-color: #ebedf0;
+    border-color: #bec3c9;
+}
+
+.provider-btn img {
+    height: 20px;
+    width: 20px;
+    margin-right: 12px; /* More space */
+    vertical-align: middle; /* Align icon vertically with text */
+}
+
+.provider-btn span {
+    flex-grow: 1; /* Allow text to take remaining space */
+    text-align: center; /* Center text within the span */
+}
+
+/* Specific button styles (optional, if you want brand colors) */
+/*
+.provider-btn.facebook { background-color: #1877f2; color: white; border-color: #1877f2; }
+.provider-btn.google { background-color: #db4437; color: white; border-color: #db4437; }
+.provider-btn.twitter { background-color: #1da1f2; color: white; border-color: #1da1f2; }
+.provider-btn.facebook:hover { background-color: #166fe5; }
+.provider-btn.google:hover { background-color: #d04033; }
+.provider-btn.twitter:hover { background-color: #1a91da; }
+*/
+
+/* Footer */
+footer {
+    margin-top: 25px;
+    padding-top: 15px;
+    border-top: 1px solid #e4e6eb; /* Separator line */
+    font-size: 12px;
+    color: #8a8d91;
+}
+
+footer a {
+    color: #606770;
+    text-decoration: none;
+    margin: 0 5px;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+    .container {
+        padding: 20px;
+    }
+    header h1 {
+        font-size: 1.5em;
+    }
+    .provider-btn {
+        padding: 10px 12px;
+        font-size: 14px;
+    }
+    .provider-btn img {
+        height: 18px;
+        width: 18px;
+        margin-right: 10px;
+    }
+}

