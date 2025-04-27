@@ -88,7 +88,7 @@ def index():
     # Avoid logging full headers/cookies unless necessary for debugging
     # app.logger.debug(f"Landing page headers: {dict(request.headers)}")
     # app.logger.debug(f"Landing page cookies: {request.cookies}")
-    # time.sleep(2) # Removed unnecessary delay
+    # time.sleep(2) # disabled by default but if you want to simulate loading time you can uncomment this :)
     return render_template('select_provider.html')
 
 @app.route('/login/<provider>', methods=['GET'])
@@ -104,7 +104,7 @@ def login_provider(provider):
         abort(404) # Use Flask's abort for standard error pages
 
     app.logger.info(f"{provider.capitalize()} login page visit from {client_ip} (User-Agent: {user_agent})")
-    # time.sleep(2) # Removed unnecessary delay
+    # time.sleep(2) # <3
     return render_template(template)
 
 @app.route('/submit/<provider>', methods=['POST'])
