@@ -12,6 +12,7 @@ import os
 import sys
 import logging
 import logging.config
+import time # Added for sleep in main loop error case
 from datetime import datetime
 from dnslib import DNSRecord, RR, A, QTYPE, DNSHeader, DNSQuestion
 
@@ -43,7 +44,7 @@ except Exception as e:
 # --- ---
 
 # --- Constants ---
-LISTEN_IP = '0.0.0.0'
+# LISTEN_IP = '0.0.0.0' # Removed - will bind to specific redirect_ip
 LISTEN_PORT = 53
 CONFIG_FILENAME = 'config.json'
 # LOG_DIR_NAME and DNS_LOG_FILENAME are no longer needed here as logging is centralized
@@ -73,7 +74,7 @@ def load_config(config_path):
 def log_dns_query(client_ip, domain, qtype_name):
     """Logs a DNS query using the configured logger."""
     # Logging is now handled by the configured handlers (console, file_json)
-    logger.info(f"DNS query received ({qtype_name})", extra={'client_ip': client_ip, 'domain': domain, 'query_type': qtype_name})
+    logger.info(f"*** DNS Query Received *** Type: {qtype_name}, Domain: {domain}", extra={'client_ip': client_ip, 'domain': domain, 'query_type': qtype_name})
 
 def handle_dns_request(data, addr, sock, redirect_ip):
     """
@@ -123,16 +124,17 @@ def handle_dns_request(data, addr, sock, redirect_ip):
     except Exception as e:
         logger.error(f"Error handling DNS request", extra={'client_ip': client_ip}, exc_info=True)
 
-def start_dns_server(listen_ip, listen_port, redirect_ip):
+def start_dns_server(listen_port, redirect_ip):
     """
     Starts the DNS server, listening for requests and handling them in threads.
+    Binds specifically to the redirect_ip.
 
     Args:
-        listen_ip (str): IP address to listen on.
-        listen_port (int): Port to listen on.
-        redirect_ip (str): IP address to redirect A queries to.
+        listen_port (int): Port to listen on (usually 53).
+        redirect_ip (str): IP address to bind the server to and redirect A queries to.
     """
     sock = None
+    listen_ip = redirect_ip # Bind to the same IP we redirect to
     try:
         sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         # Allow address reuse immediately
@@ -188,10 +190,10 @@ if __name__ == '__main__':
 
         # Log directory creation is handled by logging_config.py setup
 
-        # Start the server
+        # Start the server, binding to the redirect_ip
         try:
-            logger.info(f"Starting DNS server with redirect IP: {redirect_ip}")
-            start_dns_server(LISTEN_IP, LISTEN_PORT, redirect_ip)
+            logger.info(f"Starting DNS server, binding to redirect IP: {redirect_ip}")
+            start_dns_server(LISTEN_PORT, redirect_ip) # Pass only port and redirect IP
         except KeyboardInterrupt:
              logger.info("KeyboardInterrupt received. Shutting down DNS server.")
         except Exception as e:

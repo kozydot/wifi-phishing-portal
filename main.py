@@ -108,18 +108,11 @@ def start_dns_server():
         cmd = [sys.executable, dns_script_path]
         try:
             logger.info(f"Starting DNS server process: {' '.join(cmd)}")
-            # Use Popen for potentially long-running process, though run works for daemons too
-            process = subprocess.Popen(cmd, cwd=os.path.dirname(__file__),
-                                       stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
-            # Log output if needed (can be verbose)
-            # for line in process.stdout:
-            #     logger.debug(f"[DNS STDOUT] {line.strip()}")
-            # for line in process.stderr:
-            #     logger.error(f"[DNS STDERR] {line.strip()}")
-            stdout, stderr = process.communicate() # Wait for process to finish (it shouldn't if it's a server)
+            # Run the process, allowing its stdout/stderr to inherit from the parent
+            process = subprocess.Popen(cmd, cwd=os.path.dirname(__file__))
+            # Wait for the process to finish (it shouldn't if it's a server)
+            process.wait()
             logger.info(f"DNS server process finished unexpectedly with code {process.returncode}.")
-            if stdout: logger.info(f"DNS stdout: {stdout.strip()}")
-            if stderr: logger.error(f"DNS stderr: {stderr.strip()}")
 
         except FileNotFoundError:
             logger.error(f"Could not find {dns_script_path} or python interpreter '{sys.executable}'.")
@@ -141,17 +134,11 @@ def start_captive_portal():
         cmd = [sys.executable, portal_script]
         try:
             logger.info(f"Starting captive portal process: {' '.join(cmd)}")
-            process = subprocess.Popen(cmd, cwd=os.path.dirname(__file__),
-                                       stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
-            # Log output if needed
-            # for line in process.stdout:
-            #     logger.debug(f"[Portal STDOUT] {line.strip()}")
-            # for line in process.stderr:
-            #     logger.error(f"[Portal STDERR] {line.strip()}")
-            stdout, stderr = process.communicate()
+            # Run the process, allowing its stdout/stderr to inherit from the parent
+            process = subprocess.Popen(cmd, cwd=os.path.dirname(__file__))
+            # Wait for the process to finish (it shouldn't if it's a server)
+            process.wait()
             logger.info(f"Captive portal process finished unexpectedly with code {process.returncode}.")
-            if stdout: logger.info(f"Portal stdout: {stdout.strip()}")
-            if stderr: logger.error(f"Portal stderr: {stderr.strip()}")
 
         except FileNotFoundError:
             logger.error(f"Could not find {portal_script} or python interpreter '{sys.executable}'.")
