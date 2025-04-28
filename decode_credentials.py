@@ -2,7 +2,8 @@
 Utility to decrypt and display captured credentials stored in an encrypted file.
 
 Reads the Fernet encryption key from the configuration file and uses it
-to decrypt the contents of the specified credential file. Uses centralized logging.
+to decrypt the contents of the specified credential file. Uses centralized logging
+and also prints decrypted details to the console.
 """
 import os
 import json
@@ -88,7 +89,7 @@ def get_fernet_key(config):
 def decrypt_and_display(cred_file_path, fernet_instance):
     """
     Reads an encrypted file line by line, decrypts each line,
-    and logs the JSON data contained within.
+    logs the JSON data, and prints details to the console.
 
     Args:
         cred_file_path (str): Path to the encrypted credential file.
@@ -101,9 +102,10 @@ def decrypt_and_display(cred_file_path, fernet_instance):
         logger.error("Fernet instance is not available, cannot decrypt.")
         return
 
-    logger.info(f"Attempting to decode credentials from: {cred_file_path}")
+    logger.info(f"Attempting to decode credentials from: {cred_file_path}\n")
     lines_processed = 0
     lines_failed = 0
+    successful_decryptions = 0
 
     try:
         with open(cred_file_path, 'rb') as f:
@@ -119,23 +121,33 @@ def decrypt_and_display(cred_file_path, fernet_instance):
                 try:
                     decrypted_bytes = fernet_instance.decrypt(line)
                     data = json.loads(decrypted_bytes.decode('utf-8'))
+                    successful_decryptions += 1
 
-                    # Log decoded data - Use logger.info or logger.debug
-                    # WARNING: Logging passwords, even decoded ones, is risky.
-                    # Consider masking or omitting in a real application.
-                    log_extra.update(data) # Add decoded fields to log record
-                    # Mask password before logging if present
+                    # --- Print details to console ---
+                    print(f"--- Record #{successful_decryptions} (Line: {line_num}) ---")
+                    print(f"  Time:      {data.get('timestamp', 'N/A')}")
+                    print(f"  Provider:  {data.get('provider', 'N/A')}")
+                    print(f"  Client IP: {data.get('client_ip', 'N/A')}")
+                    print(f"  User Agent:{data.get('user_agent', 'N/A')}")
+                    print(f"  Username:  {data.get('username', 'N/A')}")
+                    # WARNING: Displaying passwords, even decoded ones, is risky.
+                    password = data.get('password', 'N/A')
+                    print(f"  Password:  {'*' * len(password) if password != 'N/A' else 'N/A'}  <-- MASKED") # Mask password on console too
+                    print("-" * 40)
+                    # --- End Print ---
+
+                    # Log decoded data (password already removed/masked for logging)
+                    log_extra.update(data)
                     if 'password' in log_extra:
                         log_extra['password_masked'] = '*' * len(log_extra['password'])
-                        del log_extra['password'] # Remove raw password from log
+                        del log_extra['password']
 
-                    logger.info(f"Decrypted Record #{lines_processed}", extra=log_extra)
-                    # Example of logging individual fields if preferred over dumping all:
-                    # logger.info(f"Record {lines_processed}: Time={data.get('timestamp')}, IP={data.get('client_ip')}, User={data.get('username')}", extra=log_extra)
+                    logger.info(f"Successfully decrypted Record #{successful_decryptions}", extra=log_extra)
 
 
                 except InvalidToken:
-                    logger.error(f"Failed to decrypt line: Invalid token or key.", extra=log_extra, exc_info=False) # exc_info=False as it's expected
+                    # Don't print anything for failed decryptions, just log
+                    logger.error(f"Failed to decrypt line: Invalid token or key.", extra=log_extra, exc_info=False)
                     lines_failed += 1
                 except json.JSONDecodeError:
                     logger.error(f"Failed to decode JSON after decryption.", extra=log_extra, exc_info=True)
@@ -157,7 +169,11 @@ def decrypt_and_display(cred_file_path, fernet_instance):
         logger.error(f"An unexpected error occurred during file processing: {e}", exc_info=True)
         return
 
-    logger.info(f"Finished processing. Records processed: {lines_processed}, Decryption/Decode Failures: {lines_failed}")
+    print(f"\n--- Summary ---")
+    print(f"Total lines processed: {lines_processed}")
+    print(f"Successfully decrypted: {successful_decryptions}")
+    print(f"Decryption/Decode Failures: {lines_failed}")
+    logger.info(f"Finished processing. Records processed: {lines_processed}, Successfully decrypted: {successful_decryptions}, Failures: {lines_failed}")
 
 
 def main():
