@@ -3,3 +3,4 @@ cryptography
 paramiko
 requests
 dnslib
+colorlog
