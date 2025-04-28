@@ -132,7 +132,7 @@ def decrypt_and_display(cred_file_path, fernet_instance):
                     print(f"  Username:  {data.get('username', 'N/A')}")
                     # WARNING: Displaying passwords, even decoded ones, is risky.
                     password = data.get('password', 'N/A')
-                    print(f"  Password:  {'*' * len(password) if password != 'N/A' else 'N/A'}  <-- MASKED") # Mask password on console too
+                    print(f"  Password:  {password}") # Print actual password to console
                     print("-" * 40)
                     # --- End Print ---
 
