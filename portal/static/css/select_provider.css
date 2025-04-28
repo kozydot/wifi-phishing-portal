@@ -53,7 +53,7 @@ header p {
     cursor: pointer;
     background-color: #f5f6f7; /* Light grey background */
     color: #4b4f56; /* Dark grey text */
-    transition: background-color 0.2s ease, border-color 0.2s ease;
+    transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease; /* Added transform transition */
     box-sizing: border-box;
     text-align: center; /* Ensure text is centered if span wraps */
 }
@@ -61,6 +61,7 @@ header p {
 .provider-btn:hover {
     background-color: #ebedf0;
     border-color: #bec3c9;
+    transform: scale(1.03); /* Add scale effect on hover */
 }
 
 .provider-btn img {
