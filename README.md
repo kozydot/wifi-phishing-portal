@@ -158,25 +158,39 @@ The application now uses a comprehensive, structured logging system configured v
 
 ### Generating Your Own Fernet Key
 
-The portal uses **Fernet symmetric encryption** (from the `cryptography` library) to securely store captured credentials.
+The portal uses **Fernet symmetric encryption** (from the `cryptography` library) to securely store captured credentials. Using a unique, strong key is crucial for protecting the captured data. **Never commit your actual Fernet key to version control (like Git).**
 
-To generate your own Fernet key:
+Follow these steps to generate and configure your key:
 
-1. Open a Python shell or script and run:
+1.  **Generate the Key:**
+    Open a Python interactive shell (`python`) or create a temporary Python script (`.py` file) and execute the following code:
+    ```python
+    from cryptography.fernet import Fernet
+    # Generate a new URL-safe base64-encoded 32-byte key
+    key = Fernet.generate_key()
+    # Print the key as a standard string
+    print(key.decode())
+    ```
 
-```python
-from cryptography.fernet import Fernet
-key = Fernet.generate_key()
-print(key.decode())
-```
+2.  **Copy the Key:**
+    The script will output a unique key string. Copy this string carefully.
+    *   **Example Output:** `YourGeneratedKeyStringHere`
 
-This will output a base64-encoded key string.
+3.  **Configure `config.json`:**
+    Open the `config.json` file located in the `wifi-phishing-portal` directory. Find the `"fernet_key"` setting and paste your generated key string as its value:
+    ```json
+    {
+      "ssid": "FakeWiFi",
+      "wifi_password": "",
+      "captive_portal_ip": "192.168.137.1",
+      "fernet_key": "YourGeneratedKeyStringHere" // <-- Paste your key here
+    }
+    ```
 
-2. Copy the key **without the `b'...'` and quotes**.
+4.  **Restart the Portal:**
+    If the portal (`main.py` or `portal/app.py`) is running, stop it and restart it to ensure it loads the new key from `config.json`.
 
-3. Open `config.json` and set the value for `"fernet_key"`.
-
-4. Restart the phishing portal to use the new key.
+**Security Note:** Treat your Fernet key like a password. Keep it secure and private. Anyone with this key can decrypt the captured credentials stored in `login_details/captured_credentials.enc`.
 
 ### Decoding credentials with your key
 
