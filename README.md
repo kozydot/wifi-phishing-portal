@@ -15,6 +15,7 @@ A phishing portal framework designed to simulate popular login pages (Facebook, 
 - [Customizing Templates](#customizing-templates)
 - [Security Considerations](#security-considerations)
 - [Legal Disclaimer](#legal-disclaimer)
+- [Recent Updates](#recent-updates)
 - [Troubleshooting](#troubleshooting)
 - [License](#license)
 - [Credits](#credits)
@@ -132,7 +133,7 @@ python main.py
 The application now uses a comprehensive, structured logging system configured via `logging_config.py`.
 
 - **Configuration:** `wifi-phishing-portal/logging_config.py` defines formatters, handlers, and loggers.
-- **Console Output:** Provides readable, timestamped logs to the standard output during execution. Log level is generally INFO, but can be configured.
+- **Console Output:** Provides readable, timestamped logs to the standard output during execution. Log level is generally INFO, but can be configured. **INFO level names are colored green** for better visibility (requires `colorlog` library).
 - **File Output:**
     - **Location:** `wifi-phishing-portal/logs/wifi_portal.log`
     - **Format:** JSON (structured logs), making it easy to parse and analyze.
@@ -226,6 +227,20 @@ python decode_credentials.py
 This tool is intended **solely for educational purposes, authorized penetration testing, and security research**. Unauthorized use against systems or individuals without explicit consent is **illegal and unethical**.
 
 The author **assume no liability** for misuse or damages caused by this tool.
+
+---
+
+## Recent Updates (April 2025)
+
+- **Enhanced Logging:** Implemented structured logging system using Python's `logging` module and a central configuration (`logging_config.py`). Logs are now in JSON format in `logs/wifi_portal.log` with rotation, and also mirrored to the console.
+- **Colored Console Logs:** Added optional colored output for console logs (INFO level name is green) using the `colorlog` library (added to `requirements.txt`).
+- **Improved Facebook Template:** Significantly updated `login_facebook.html` to more closely resemble the actual Facebook login page, including layout, styling, and embedded logo.
+- **Mobile Responsiveness:** Improved layout and styling for mobile devices across all login templates (`login_facebook.html`, `login_google.html`, `login_twitter.html`).
+- **Basic Email Validation:** Added `type="email"` to relevant input fields in HTML and a basic server-side check for "@" in `portal/app.py` (logged).
+- **UI Enhancements:**
+    - Added CSS hover animation (scale effect) to provider buttons on `select_provider.html`.
+    - Fixed various minor CSS inconsistencies and styling issues.
+- **Code Refinements:** General code cleanup, improved error handling visibility, and fixed subprocess execution paths.
 
 ---
 
