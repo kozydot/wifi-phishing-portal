@@ -14,6 +14,9 @@ captured_credentials.*
 *credentials*
 dns_queries.log
 
+# Configuration files with sensitive data
+config.json
+
 # Environment specifics
 .env
 *.env
