@@ -9,8 +9,10 @@ logs/
 *.log
 
 # Captured data (Sensitive - should generally not be committed)
-login_details/captured_credentials.enc
-# login_details/dns_queries.log # Keep this commented if user wants to track DNS queries
+login_details/
+captured_credentials.*
+*credentials*
+dns_queries.log
 
 # Environment specifics
 .env

