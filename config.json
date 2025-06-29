@@ -1,6 +1,0 @@
-{
-  "ssid": "Free_Public_WiFi",
-  "wifi_password": "12345678",
-  "captive_portal_ip": "192.168.1.1",
-  "fernet_key": "YOUR_GENERATED_FERNET_KEY_HERE"
-}
